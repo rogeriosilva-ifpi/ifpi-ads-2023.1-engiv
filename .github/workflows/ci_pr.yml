@@ -1,4 +1,4 @@
-name: API CI Process
+name: API PR CI Process
 
 on:
   pull_request:
