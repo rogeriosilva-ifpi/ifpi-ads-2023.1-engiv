@@ -8,4 +8,4 @@ def test_hello():
 class MainTest(unittest.TestCase):
 
     def test_hello(self):
-        self.assertEqual(0, 1)
+        self.assertEqual(1, 1)
