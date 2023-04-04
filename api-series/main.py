@@ -1,5 +1,3 @@
-import random
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -43,3 +41,8 @@ def create_serie(serie: Serie):
 @app.get('/series/{id}')
 def detail_serie(id: int):
     return series[id-1]
+
+
+@app.delete('/series/{id}')
+def remove_serie(id: int):
+    return series.pop(id - 1)
