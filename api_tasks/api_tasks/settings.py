@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'tasks'
+    'tasks',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,12 @@ DATABASES = {
             "NAME": config('DB_NAME_TEST'),
         }
     }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
 }
 
 
