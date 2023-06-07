@@ -7,8 +7,10 @@ export const schema = `#graphql
     }
 
     type Query{
-        expenses: [Expense]
+        expenses(skip: Int, take: Int): [Expense]
         ping: String
+        hello: String
+        goodbye: String
     }
 
     input ExpenseInput{

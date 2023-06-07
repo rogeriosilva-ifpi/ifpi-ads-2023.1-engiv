@@ -2,19 +2,11 @@ import expensesService from "../../application/expenses.service"
 
 export const resolvers = {
     Query: {
-        ping: () => 'Pong!',
-        expenses: async () => {
-            return await expensesService.list()
-        }
-    },
-    Mutation: {
-        addExpense: async (_, args) => {
-            const input = args.input
-            return await expensesService.create(input)
+        expenses: async (parent, args, ctx, info) => {
+            return await expensesService.list(args.skip, args.take)
         }
     },
     Expense: {
-        comments: () => ['Despesa desnecessário viu Loira!']
+        description: (parent) => parent.description.toUpperCase()
     }
-
 }
