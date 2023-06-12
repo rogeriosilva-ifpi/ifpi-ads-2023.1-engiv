@@ -1,15 +1,16 @@
-import { ApolloServer } from "@apollo/server";
+import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import cors from "cors";
 import debug from "debug";
 import express, { Request, Response } from "express";
 import "express-async-errors";
+import 'reflect-metadata';
+import { buildSchema } from 'type-graphql';
 import { CommomRoutesConfig } from "./common/common.routes.config";
 import { my_logger } from "./common/log";
-import { resolvers } from "./presentation/graphql/expenses.resolver";
-import { schema } from "./presentation/graphql/expenses.schema";
 import { errorHandler } from "./presentation/rest/error.middleware";
 import { ExpensesRoutes } from "./presentation/rest/expenses.routes";
+import { ExpenseResolver } from './presentation/typegraphql/expense.resolver';
 
 
 const debugLog: debug.IDebugger = debug("app");
@@ -40,12 +41,26 @@ async function main() {
   app.use(errorHandler);
 
 
-  const serverGql = new ApolloServer({
+  // SChema first code
+  /*const serverGql = new ApolloServer({
     typeDefs: schema,
     resolvers: resolvers
   })
 
+
   await serverGql.start()
+  */
+
+  const schema = await buildSchema({
+    resolvers: [ExpenseResolver]
+  })
+
+  const serverGql = new ApolloServer({
+    schema,
+  })
+
+  await serverGql.start()
+
 
   const graphMiddleware = expressMiddleware(serverGql)
 

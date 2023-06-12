@@ -2,7 +2,7 @@ import expensesService from "../../application/expenses.service"
 
 export const resolvers = {
     Query: {
-        expenses: async (parent, args, ctx, info) => {
+        expenses: async (_, args, ctx, info) => {
             return await expensesService.list(args.skip, args.take)
         }
     },

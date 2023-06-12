@@ -4,6 +4,13 @@ export const schema = `#graphql
         description: String
         amount: Float
         comments: [String]
+        owner: User
+    }
+
+    type User{
+        id: String
+        email: String!
+        name: String!
     }
 
     type Query{
